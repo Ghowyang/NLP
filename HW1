@@ -1,10 +1,28 @@
 import jieba  
-from sklearn.feature_extraction.text import TfidfTransformer
-from sklearn.feature_extraction.text import CountVectorizer
-from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
+
+txt = open("新文字文件.txt", encoding="utf-8").read()
+count_word=0
+words  = jieba.lcut(txt)
+counts={}
+for word in words:
+    counts[word]=counts.get(word,0)+1
+    count_word += 1
+print ('字數總數:',count_word)
+
+count=1
+thefile=open("新文字文件.txt", encoding="utf-8")
+while True:
+    buffer=thefile.read(1024*8192)
+    if not buffer:
+        break
+    count+=buffer.count('\n')
+thefile.close()
+print('總行數:',count)
 
 txt = open("新文字文件.txt", encoding="utf-8").read()
 #加載停用詞表   
+count=0
 words  = jieba.lcut(txt)  
 new = {} 
 for word in words:   
@@ -12,8 +30,8 @@ for word in words:
 exc={"。","，","~","\n","="," ",":","!","?","？","！",",","...","\t"}
 for word in exc:
     del new[word]
-
 items = list(new.items())  
 items.sort(key=lambda x:x[1], reverse=True) 
 for i in range(100):   
     print (items[i])
+    
