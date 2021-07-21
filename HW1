@@ -18,12 +18,12 @@ print (lines)
 
 txt = open("新文字文件.txt", encoding="utf-8").read()   
 num = []
-num_word = []
+freq_word = [] #詞頻
 words  = jieba.lcut(txt)  
 new = {} #建立空字典
 for word in words:   
      new[word] = new.get(word,0) + 1
-exc={"。","，","~","\n","="," ",":","!","?","？","！",",","...","\t","\u3000","+"}
+exc={"。","，","~","\n","="," ",":","!","?","？","！",",","...","\t","\u3000","+","(",")",".."}
 for word in exc:
     del new[word]
 
@@ -32,5 +32,27 @@ items = list(new.items())
 for j in range(100):
     word,count=items[j]
     num.append(count)
-    num_word = sorted(num,reverse=True)
-print(num_word)
+    freq_word = sorted(num,reverse=True)
+print(freq_word)
+
+idf = []
+for i in range(100):
+    number = lines/freq_word[i]
+    log = math.log10(number)
+    idf.append(log)
+print(idf)
+
+store = []
+for j in range(100):
+    store=freq_word
+print(store)
+
+wordnumber = []#字詞編號
+for j in range(100):
+    freq_word=j
+    wordnumber.append(freq_word)
+print(wordnumber)
+
+plt.bar(wordnumber, store, width=0.5, bottom=None, align='center', color=['navy'])
+plt.xticks(rotation='vertical')
+plt.show()
