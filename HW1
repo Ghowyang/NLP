@@ -1,5 +1,6 @@
 import jieba  
 import numpy as np
+import math
 
 txt = open("新文字文件.txt", encoding="utf-8").read()
 count_word=0
@@ -10,28 +11,26 @@ for word in words:
     count_word += 1
 print ('字數總數:',count_word)
 
-count=1
-thefile=open("新文字文件.txt", encoding="utf-8")
-while True:
-    buffer=thefile.read(1024*8192)
-    if not buffer:
-        break
-    count+=buffer.count('\n')
-thefile.close()
-print('總行數:',count)
+filename = "新文字文件.txt" 
+myfile = open(filename, encoding="utf-8") 
+lines = len(myfile.readlines()) 
+print (lines) 
 
-txt = open("新文字文件.txt", encoding="utf-8").read()
-#加載停用詞表   
-count=0
+txt = open("新文字文件.txt", encoding="utf-8").read()   
+num = []
+num_word = []
 words  = jieba.lcut(txt)  
-new = {} 
+new = {} #建立空字典
 for word in words:   
-     new[word] = new.get(word,0) + 1 
-exc={"。","，","~","\n","="," ",":","!","?","？","！",",","...","\t"}
+     new[word] = new.get(word,0) + 1
+exc={"。","，","~","\n","="," ",":","!","?","？","！",",","...","\t","\u3000","+"}
 for word in exc:
     del new[word]
-items = list(new.items())  
-items.sort(key=lambda x:x[1], reverse=True) 
-for i in range(100):   
-    print (items[i])
-    
+
+items = list(new.items())
+
+for j in range(100):
+    word,count=items[j]
+    num.append(count)
+    num_word = sorted(num,reverse=True)
+print(num_word)
