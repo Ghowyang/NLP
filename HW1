@@ -56,3 +56,7 @@ print(wordnumber)
 plt.bar(wordnumber, store, width=0.5, bottom=None, align='center', color=['navy'])
 plt.xticks(rotation='vertical')
 plt.show()
+
+plt.bar(wordnumber, tfidf, width=0.5, bottom=None, align='center', color=['navy'])
+plt.xticks(rotation='vertical')
+plt.show()
